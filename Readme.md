@@ -43,45 +43,9 @@ TRABALHO PRÁTICO Nº 1 (10 pontos)
 
 ---
 
-### Relatório
+### Comentários sobre o código `simplex-talk`
 
-Realizados os experimentos, produzam o **Relatório do Trabalho Prático 1**, com a seguinte estrutura:
-
-1. **Capa**  
-   - Instituição, curso, disciplina, semestre, título do relatório, composição do grupo, data.
-
-2. **Introdução**  
-   - Breve descrição do que se trata o relatório.
-
-3. **Experimento 1**  
-   - Enunciado.  
-   - Códigos fonte.  
-   - Modificações feitas.  
-   - Descrição detalhada dos testes realizados.  
-   - Resultados obtidos.  
-   - Análise dos resultados e conclusões.
-
-4. **Experimento 2**  
-   - Enunciado.  
-   - Códigos fonte.  
-   - Modificações feitas.  
-   - Descrição detalhada dos testes realizados.  
-   - Resultados obtidos.  
-   - Análise dos resultados e conclusões.
-
-5. **Experimento 3**  
-   - Enunciado.  
-   - Códigos fonte.  
-   - Modificações feitas.  
-   - Descrição detalhada dos testes realizados.  
-   - Resultados obtidos.  
-   - Análise dos resultados e conclusões.
-
-6. **Bibliografia**  
-   - Relação da bibliografia consultada.
-
----
-
-### Entrega
-- Este **Relatório do Trabalho Prático 1** deverá ser entregue em arquivo **PDF** (se em grupo, apenas um membro entrega).  
-- **Prazo**: Até **23:59 h de 07/05/2025 (quarta-feira)** no Moodle.
+- **AF_INET** e **PF_INET** são sinônimos.
+- Use a porta **54321** em vez de **5432**:  
+  ```c
+  #define SERVER_PORT 54321
