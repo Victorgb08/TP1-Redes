@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
-#define PORT 8080
+#define PORT 54321 // Porta correta conforme especificação
 #define BUFFER_SIZE 1024
 
 int main() {
@@ -15,7 +15,7 @@ int main() {
 
     // Criar socket UDP
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        perror("Socket creation failed");
+        perror("Erro na criação do socket");
         exit(EXIT_FAILURE);
     }
 
@@ -27,12 +27,12 @@ int main() {
 
     // Associar socket ao endereço
     if (bind(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
-        perror("Bind failed");
+        perror("Erro no bind");
         close(sockfd);
         exit(EXIT_FAILURE);
     }
 
-    printf("Servidor UDP aguardando mensagens...\n");
+    printf("Servidor UDP aguardando mensagens na porta %d...\n", PORT);
 
     // Loop para receber e responder mensagens
     while (1) {
@@ -41,7 +41,7 @@ int main() {
         // Receber mensagem do cliente
         int bytes_received = recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&client_addr, &addr_len);
         if (bytes_received < 0) {
-            perror("recvfrom failed");
+            perror("Erro no recvfrom");
             continue;
         }
 

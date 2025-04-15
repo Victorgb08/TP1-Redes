@@ -4,8 +4,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
-#define PORT 8080
-#define MAX_PENDING 5
+#define PORT 54321 // Porta correta conforme especificação
+#define MAX_PENDING 5 // Número máximo de conexões pendentes
 #define BUFFER_SIZE 1024
 
 int main() {
@@ -16,7 +16,7 @@ int main() {
 
     // Criar socket
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
-        perror("socket failed");
+        perror("Erro na criação do socket");
         exit(EXIT_FAILURE);
     }
 
@@ -27,19 +27,19 @@ int main() {
 
     // Associar socket ao endereço
     if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
-        perror("bind failed");
+        perror("Erro no bind");
         close(server_fd);
         exit(EXIT_FAILURE);
     }
 
     // Escutar conexões
     if (listen(server_fd, MAX_PENDING) < 0) {
-        perror("listen failed");
+        perror("Erro no listen");
         close(server_fd);
         exit(EXIT_FAILURE);
     }
 
-    printf("Servidor aguardando conexões...\n");
+    printf("Servidor aguardando conexões na porta %d...\n", PORT);
 
     // Aceitar conexões
     while ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t *)&addrlen)) >= 0) {
@@ -65,7 +65,7 @@ int main() {
     }
 
     if (new_socket < 0) {
-        perror("accept failed");
+        perror("Erro no accept");
         close(server_fd);
         exit(EXIT_FAILURE);
     }

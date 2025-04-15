@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
-#define PORT 8080
+#define PORT 54321 // Porta correta conforme especificação
 #define BUFFER_SIZE 1024
 
 int main() {
@@ -16,7 +16,7 @@ int main() {
 
     // Criar socket UDP
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        perror("Socket creation failed");
+        perror("Erro na criação do socket");
         return -1;
     }
 
@@ -26,7 +26,7 @@ int main() {
     serv_addr.sin_port = htons(PORT);
 
     if (inet_pton(AF_INET, "192.168.15.64", &serv_addr.sin_addr) <= 0) {
-        perror("Invalid address/ Address not supported");
+        perror("Endereço inválido ou não suportado");
         return -1;
     }
 
@@ -44,7 +44,7 @@ int main() {
         memset(buffer, 0, BUFFER_SIZE);
         int bytes_received = recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&serv_addr, &addr_len);
         if (bytes_received < 0) {
-            perror("recvfrom failed");
+            perror("Erro no recvfrom");
             break;
         }
 
