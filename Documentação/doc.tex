@@ -1,28 +1,57 @@
-\section*{Introdução}
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{listings} % Para exibir código-fonte
+\usepackage{xcolor} % Para adicionar cores ao código
+\usepackage{hyperref} % Para links clicáveis
+
+\lstset{
+    language=C, % Linguagem do código
+    basicstyle=\ttfamily\small, % Fonte monoespaçada e tamanho pequeno
+    keywordstyle=\color{blue}\bfseries, % Palavras-chave em azul e negrito
+    stringstyle=\color{red}, % Strings em vermelho
+    commentstyle=\color{gray}, % Comentários em cinza
+    numbers=left, % Números das linhas à esquerda
+    numberstyle=\tiny\color{gray}, % Estilo dos números das linhas
+    stepnumber=1, % Incremento dos números das linhas
+    breaklines=true, % Quebra de linhas longa
+    frame=single, % Moldura ao redor do código
+    captionpos=b, % Legenda abaixo do código
+    tabsize=4, % Tamanho do tab
+    showspaces=false, % Não mostrar espaços
+    showstringspaces=false, % Não mostrar espaços em strings
+    breakatwhitespace=true, % Quebrar linhas apenas em espaços
+}
+\title{TP1-Redes}
+\author{Victor Guedes}
+\date{April 2025}
+
+\begin{document}
+
+\section{Introdução}
 
 O presente relatório documenta o desenvolvimento e a análise de experimentos práticos relacionados à comunicação em redes de computadores, utilizando sockets como mecanismo de interação entre processos. Este trabalho tem como objetivo principal explorar os conceitos fundamentais de redes, como os protocolos de transporte TCP e UDP, e implementar soluções práticas em linguagem de programação C para compreender o funcionamento da comunicação cliente-servidor em ambientes de rede local.
 
-\subsection*{Fundamentos de Redes de Computadores}
+\subsection{Fundamentos de Redes de Computadores}
 
 A comunicação em redes de computadores é baseada em um conjunto de protocolos que definem como os dados são transmitidos entre dispositivos conectados. No contexto deste trabalho, os protocolos TCP (Transmission Control Protocol) e UDP (User Datagram Protocol) desempenham papéis centrais. O TCP é um protocolo orientado à conexão, que garante a entrega confiável de dados e a ordem correta dos pacotes. Por outro lado, o UDP é um protocolo sem conexão, que prioriza a baixa latência em detrimento da confiabilidade, sendo amplamente utilizado em aplicações que toleram perdas de pacotes, como streaming de vídeo e jogos online.
 
-\subsection*{Sockets e Comunicação Cliente-Servidor}
+\subsection{Sockets e Comunicação Cliente-Servidor}
 
-A programação com sockets é uma técnica amplamente utilizada para implementar a comunicação entre processos em redes de computadores. Um socket é um ponto final de comunicação que permite a troca de dados entre um cliente e um servidor. No modelo cliente-servidor, o servidor é responsável por aguardar conexões de clientes, enquanto os clientes iniciam a comunicação enviando solicitações ao servidor. Este trabalho utiliza sockets do tipo \texttt{SOCK\_STREAM} para implementar comunicação baseada em TCP e \texttt{SOCK\_DGRAM} para comunicação baseada em UDP.
+A programação com sockets é uma técnica amplamente utilizada para implementar a comunicação entre processos em redes de computadores. Um socket é um ponto final de comunicação que permite a troca de dados entre um cliente e um servidor. No modelo cliente-servidor, o servidor é responsável por aguardar conexões de clientes, enquanto os clientes iniciam a comunicação enviando solicitações ao servidor. Este trabalho utiliza sockets do tipo \texttt{SOCK\_STREAM} para implementar comunicação baseada em TCP e \texttt{SOCK\_DGRAM} para comunicação baseada em UDP. As implementações foram realizadas nos códigos \texttt{client32.c}, \texttt{server32.c}, \texttt{client33.c}, \texttt{server33.c}, \texttt{client34.c} e \texttt{server34.c}, descritos nas seções correspondentes.
 
-\subsection*{Bibliotecas Utilizadas}
+\subsection{Bibliotecas Utilizadas}
 
-A linguagem C oferece suporte nativo à programação com sockets através de bibliotecas padrão, como \texttt{<arpa/inet.h>}, \texttt{<sys/socket.h>} e \texttt{<unistd.h>}. Essas bibliotecas fornecem funções essenciais, como:
+A linguagem C oferece suporte nativo à programação com sockets através de bibliotecas padrão, como \texttt{<netinet/in.h>}, \texttt{<sys/socket.h>} e \texttt{<netdb.h>}. Essas bibliotecas fornecem funções essenciais, como:
 \begin{itemize}
     \item \texttt{socket()}: Criação de um socket.
     \item \texttt{bind()}: Associação de um socket a um endereço IP e porta.
     \item \texttt{listen()} e \texttt{accept()}: Configuração e aceitação de conexões no modelo TCP.
     \item \texttt{send()} e \texttt{recv()}: Envio e recebimento de dados no modelo TCP.
     \item \texttt{sendto()} e \texttt{recvfrom()}: Envio e recebimento de dados no modelo UDP.
-    \item \texttt{inet\_pton()}: Conversão de endereços IP em formato textual para binário.
+    \item \texttt{gethostbyname()}: Resolução de nomes de host para endereços IP.
 \end{itemize}
 
-\subsection*{Objetivos do Trabalho}
+\subsection{Objetivos do Trabalho}
 
 Este trabalho é dividido em três experimentos principais:
 \begin{enumerate}
@@ -31,86 +60,97 @@ Este trabalho é dividido em três experimentos principais:
     \item O terceiro experimento substituiu o protocolo TCP pelo UDP, analisando as diferenças no comportamento da comunicação e os impactos na confiabilidade e ordem dos dados transmitidos.
 \end{enumerate}
 
-\subsection*{Ambiente de Desenvolvimento}
+\subsection{Ambiente de Desenvolvimento}
 
-Todos os experimentos foram desenvolvidos e testados em um ambiente Linux, utilizando a distribuição Ubuntu, conforme especificado no enunciado do trabalho. A escolha do Linux se deve à sua robustez e suporte nativo para programação em rede. Além disso, foi utilizada a linguagem C devido ao seu desempenho e controle direto sobre os recursos do sistema.
+Todos os experimentos foram desenvolvidos e testados em um ambiente Linux, utilizando a distribuição Ubuntu. A escolha do Linux se deve à sua robustez e suporte nativo para programação em rede. Além disso, foi utilizada a linguagem C devido ao seu desempenho e controle direto sobre os recursos do sistema.
 
-\subsection*{Importância do Trabalho}
+\subsection{Importância do Trabalho}
 
 A realização deste trabalho prático permite aos alunos consolidar os conceitos teóricos de redes de computadores, compreender as diferenças entre os protocolos TCP e UDP e adquirir habilidades práticas em programação com sockets. Além disso, o trabalho destaca a importância de compreender os detalhes de implementação de sistemas distribuídos, como o gerenciamento de conexões, manipulação de buffers e tratamento de erros.
 
-\section*{Introdução}
+\section{Experimento 1}
 
-O presente relatório documenta o desenvolvimento e a análise de experimentos práticos relacionados à comunicação em redes de computadores, utilizando sockets como mecanismo de interação entre processos. Este trabalho tem como objetivo principal explorar os conceitos fundamentais de redes, como os protocolos de transporte TCP e UDP, e implementar soluções práticas em linguagem de programação C para compreender o funcionamento da comunicação cliente-servidor em ambientes de rede local.
+\subsection{Enunciado}
 
-\subsection*{Fundamentos de Redes de Computadores}
+O primeiro experimento consiste em implementar um servidor TCP capaz de lidar com múltiplas conexões de clientes, explorando o comportamento do parâmetro \texttt{MAX\_PENDING}. O objetivo é observar o comportamento do servidor e dos clientes quando o número de conexões simultâneas excede o valor configurado para \texttt{MAX\_PENDING}. Além disso, o experimento analisa o que ocorre ao encerrar um cliente enquanto outros aguardam na fila de conexões.
 
-A comunicação em redes de computadores é baseada em um conjunto de protocolos que definem como os dados são transmitidos entre dispositivos conectados. No contexto deste trabalho, os protocolos TCP (Transmission Control Protocol) e UDP (User Datagram Protocol) desempenham papéis centrais. O TCP é um protocolo orientado à conexão, que garante a entrega confiável de dados e a ordem correta dos pacotes. Por outro lado, o UDP é um protocolo sem conexão, que prioriza a baixa latência em detrimento da confiabilidade, sendo amplamente utilizado em aplicações que toleram perdas de pacotes, como streaming de vídeo e jogos online.
+\subsection{Implementação}
 
-\subsection*{Sockets e Comunicação Cliente-Servidor}
+A implementação do experimento foi realizada com base no código do exemplo \texttt{simplex-talk}, utilizando o protocolo TCP para garantir a confiabilidade da comunicação. As principais modificações realizadas foram:
 
-A programação com sockets é uma técnica amplamente utilizada para implementar a comunicação entre processos em redes de computadores. Um socket é um ponto final de comunicação que permite a troca de dados entre um cliente e um servidor. No modelo cliente-servidor, o servidor é responsável por aguardar conexões de clientes, enquanto os clientes iniciam a comunicação enviando solicitações ao servidor. Este trabalho utiliza sockets do tipo \texttt{SOCK\_STREAM} para implementar comunicação baseada em TCP e \texttt{SOCK\_DGRAM} para comunicação baseada em UDP.
-
-\subsection*{Bibliotecas Utilizadas}
-
-A linguagem C oferece suporte nativo à programação com sockets através de bibliotecas padrão, como \texttt{<arpa/inet.h>}, \texttt{<sys/socket.h>} e \texttt{<unistd.h>}. Essas bibliotecas fornecem funções essenciais, como:
 \begin{itemize}
-    \item \texttt{socket()}: Criação de um socket.
-    \item \texttt{bind()}: Associação de um socket a um endereço IP e porta.
-    \item \texttt{listen()} e \texttt{accept()}: Configuração e aceitação de conexões no modelo TCP.
-    \item \texttt{send()} e \texttt{recv()}: Envio e recebimento de dados no modelo TCP.
-    \item \texttt{sendto()} e \texttt{recvfrom()}: Envio e recebimento de dados no modelo UDP.
-    \item \texttt{inet\_pton()}: Conversão de endereços IP em formato textual para binário.
-\end{itemize}
+    \item No servidor \hyperref[lst:server1]{\texttt{server32.c}}, foi configurado o parâmetro \texttt{MAX\_PENDING} para controlar o número máximo de conexões pendentes.
+    \item No cliente \hyperref[lst:client1]{\texttt{client32.c}}, foi mantida a estrutura original, permitindo que múltiplos clientes tentem se conectar ao servidor simultaneamente.
+    \item Foram adicionadas mensagens de log no servidor para monitorar o comportamento das conexões e identificar quando novas conexões são aceitas ou rejeitadas.\end{itemize}
 
-\subsection*{Objetivos do Trabalho}
+O código foi desenvolvido utilizando as bibliotecas padrão de sockets em C, como \texttt{<netinet/in.h>}, \texttt{<sys/socket.h>} e \texttt{<netdb.h>}, garantindo compatibilidade com o ambiente Linux.
 
-Este trabalho é dividido em três experimentos principais:
+\subsection{Testes Realizados}
+
+Os testes foram realizados em um ambiente de rede local, com o servidor e os clientes executados em máquinas distintas. O procedimento de teste foi o seguinte:
+
 \begin{enumerate}
-    \item No primeiro experimento, foi implementado um servidor TCP capaz de lidar com múltiplas conexões de clientes, explorando o comportamento do parâmetro \texttt{MAX\_PENDING}.
-    \item O segundo experimento modificou o modelo de comunicação para alternar entre envio e recebimento de mensagens, utilizando as funções \texttt{send()} e \texttt{recv()}.
-    \item O terceiro experimento substituiu o protocolo TCP pelo UDP, analisando as diferenças no comportamento da comunicação e os impactos na confiabilidade e ordem dos dados transmitidos.
+    \item Iniciar o servidor (\texttt{server32.c}) em uma máquina, configurado para aguardar conexões na porta \texttt{54321}.
+    \item Iniciar um cliente (\texttt{client32.c}) em outra máquina e estabelecer a conexão com o servidor.
+    \item Iniciar 10 outros clientes simultaneamente, redirecionando suas entradas para arquivos, e observar o comportamento do servidor e dos clientes.
+    \item Encerrar o primeiro cliente e verificar se um dos clientes pendentes consegue se conectar ao servidor.
+    \item Repetir o teste com o valor de \texttt{MAX\_PENDING} configurado como 1.
 \end{enumerate}
 
-\subsection*{Ambiente de Desenvolvimento}
+\subsection{Resultados Obtidos}
 
-Todos os experimentos foram desenvolvidos e testados em um ambiente Linux, utilizando a distribuição Ubuntu, conforme especificado no enunciado do trabalho. A escolha do Linux se deve à sua robustez e suporte nativo para programação em rede. Além disso, foi utilizada a linguagem C devido ao seu desempenho e controle direto sobre os recursos do sistema.
+Os resultados observados durante os testes foram os seguintes:
 
-\subsection*{Importância do Trabalho}
+\begin{itemize}
+    \item Quando o número de clientes simultâneos excedeu o valor de \texttt{MAX\_PENDING}, os clientes adicionais ficaram bloqueados aguardando na fila de conexões ou falharam ao tentar se conectar, dependendo da configuração do sistema.
+    \item Ao encerrar o primeiro cliente, um dos clientes pendentes conseguiu se conectar ao servidor, demonstrando que o servidor processa as conexões na ordem em que são recebidas.
+    \item Com \texttt{MAX\_PENDING} configurado como 1, apenas um cliente adicional pôde aguardar na fila de conexões, enquanto os demais falharam ao tentar se conectar.
+    \item O servidor lidou corretamente com as conexões estabelecidas, sem apresentar erros ou falhas durante os testes.
+\end{itemize}
 
-A realização deste trabalho prático permite aos alunos consolidar os conceitos teóricos de redes de computadores, compreender as diferenças entre os protocolos TCP e UDP e adquirir habilidades práticas em programação com sockets. Além disso, o trabalho destaca a importância de compreender os detalhes de implementação de sistemas distribuídos, como o gerenciamento de conexões, manipulação de buffers e tratamento de erros.
+\subsection{Análise dos Resultados}
 
-\section*{Experimento 2}
+Os resultados obtidos demonstram a importância do parâmetro \texttt{MAX\_PENDING} no controle do número de conexões pendentes no servidor. Quando o número de clientes excede o valor configurado, o comportamento do sistema depende da implementação do kernel e da configuração do servidor. Em sistemas reais, é essencial ajustar esse parâmetro de acordo com a carga esperada para evitar falhas ou bloqueios.
 
-\subsection*{Enunciado}
+Além disso, o experimento destacou a robustez do protocolo TCP na gestão de conexões, garantindo que as conexões estabelecidas sejam processadas de forma confiável. No entanto, é importante considerar o impacto do valor de \texttt{MAX\_PENDING} no desempenho do servidor e na experiência dos clientes.
+
+\subsection{Conclusão}
+
+O experimento 1 permitiu implementar e testar um servidor TCP capaz de lidar com múltiplas conexões de clientes, explorando o impacto do parâmetro \texttt{MAX\_PENDING}. A implementação e os testes realizados demonstraram a importância de ajustar esse parâmetro para atender às necessidades específicas de cada aplicação, garantindo um equilíbrio entre desempenho e confiabilidade.
+
+\section{Experimento 2}
+
+\subsection{Enunciado}
 
 O segundo experimento consiste em modificar o programa baseado em sockets denominado \texttt{simplex-talk} de modo que, toda vez que o cliente enviar uma linha ao servidor, este enviará a linha de volta ao cliente. O cliente e o servidor devem alternar entre chamadas às funções \texttt{recv()} e \texttt{send()}, implementando uma comunicação bidirecional.
 
-\subsection*{Implementação}
+\subsection{Implementação}
 
 A implementação do experimento foi realizada com base no código do exemplo \texttt{simplex-talk}, utilizando o protocolo TCP para garantir a confiabilidade da comunicação. As principais modificações realizadas foram:
+
 \begin{itemize}
-    \item No cliente, foi implementado um loop que permite o envio de mensagens ao servidor e a recepção de respostas alternadamente, utilizando as funções \texttt{send()} e \texttt{recv()}.
-    \item No servidor, foi implementado um loop que recebe mensagens do cliente, processa os dados e os envia de volta ao cliente.
-    \item Adição de mensagens de log no cliente e no servidor para facilitar o monitoramento da comunicação.
-\end{itemize}
+    \item No cliente \hyperref[lst:client2]{\texttt{client33.c}}, foi implementado um loop que permite o envio de mensagens ao servidor e a recepção de respostas alternadamente, utilizando as funções \texttt{send()} e \texttt{recv()}.
+    \item No servidor \hyperref[lst:server2]{\texttt{server33.c}}, foi implementado um loop que recebe mensagens do cliente, processa os dados e os envia de volta ao cliente.
+    \item Foram adicionadas mensagens de log no cliente e no servidor para facilitar o monitoramento da comunicação.\end{itemize}
 
-O código foi desenvolvido utilizando as bibliotecas padrão de sockets em C, como \texttt{<arpa/inet.h>}, \texttt{<sys/socket.h>} e \texttt{<unistd.h>}, garantindo compatibilidade com o ambiente Linux.
+O código foi desenvolvido utilizando as bibliotecas padrão de sockets em C, como \texttt{<netinet/in.h>}, \texttt{<sys/socket.h>} e \texttt{<netdb.h>}, garantindo compatibilidade com o ambiente Linux.
 
-\subsection*{Testes Realizados}
+\subsection{Testes Realizados}
 
 Os testes foram realizados em um ambiente de rede local, com o servidor e o cliente executados em máquinas distintas. O procedimento de teste foi o seguinte:
+
 \begin{enumerate}
-    \item Iniciar o servidor em uma máquina, aguardando conexões na porta \texttt{54321}.
-    \item Iniciar o cliente em outra máquina e estabelecer a conexão com o servidor.
+    \item Iniciar o servidor (\texttt{server33.c}) em uma máquina, aguardando conexões na porta \texttt{54321}.
+    \item Iniciar o cliente (\texttt{client33.c}) em outra máquina e estabelecer a conexão com o servidor.
     \item Enviar mensagens do cliente para o servidor e verificar se o servidor responde corretamente com as mesmas mensagens.
     \item Testar o comportamento do sistema com múltiplos clientes conectados simultaneamente ao servidor.
     \item Monitorar o tráfego de rede e o uso de recursos no servidor para avaliar o desempenho.
 \end{enumerate}
 
-\subsection*{Resultados Obtidos}
+\subsection{Resultados Obtidos}
 
 Os resultados observados durante os testes foram os seguintes:
+
 \begin{itemize}
     \item O cliente conseguiu enviar mensagens ao servidor e receber as respostas correspondentes de forma confiável.
     \item O servidor foi capaz de lidar com múltiplos clientes conectados simultaneamente, alternando entre as conexões sem interrupções.
@@ -118,54 +158,56 @@ Os resultados observados durante os testes foram os seguintes:
     \item Não foram observados erros ou perdas de dados durante os testes, confirmando a confiabilidade do protocolo TCP.
 \end{itemize}
 
-\subsection*{Análise dos Resultados}
+\subsection{Análise dos Resultados}
 
 Os resultados obtidos demonstram a eficácia do protocolo TCP na implementação de uma comunicação bidirecional confiável. A alternância entre \texttt{recv()} e \texttt{send()} permitiu que o cliente e o servidor trocassem mensagens de forma síncrona, garantindo que cada mensagem enviada fosse processada e respondida antes do envio da próxima.
 
 Além disso, o experimento destacou a importância de gerenciar adequadamente os buffers de entrada e saída para evitar problemas de sobreposição de dados. Em aplicações reais, técnicas como multiplexação de I/O (por exemplo, com \texttt{select()} ou \texttt{poll()}) podem ser utilizadas para lidar com múltiplas conexões de forma eficiente.
 
-\subsection*{Conclusão}
+\subsection{Conclusão}
 
 O experimento 2 permitiu implementar e testar uma comunicação bidirecional entre cliente e servidor utilizando o protocolo TCP. A implementação e os testes realizados demonstraram a confiabilidade do protocolo e forneceram uma base sólida para o desenvolvimento de aplicações mais complexas, como sistemas de chat ou transferência de arquivos.
 
-\section*{Experimento 3}
+\section{Experimento 3}
 
-\subsection*{Enunciado}
+\subsection{Enunciado}
 
-O terceiro experimento consiste em modificar o programa baseado em sockets denominado \texttt{simplex-talk} de modo que ele utilize o protocolo UDP como transporte, em vez de TCP. Para isso, as seguintes alterações devem ser realizadas:
+O terceiro experimento consiste em modificar o programa baseado em sockets denominado \texttt{simplex-talk} de modo que ele utilize o protocolo UDP como transporte, em vez de TCP. Para isso, as seguintes alterações foram realizadas:
 \begin{itemize}
     \item Substituir o parâmetro \texttt{SOCK\_STREAM} pelo parâmetro \texttt{SOCK\_DGRAM} no cliente e no servidor.
     \item No servidor, remover as chamadas às funções \texttt{listen()} e \texttt{accept()}.
-    \item Substituir os dois laços aninhados no final do servidor por um único laço que invoca \texttt{recvfrom()} com o socket.
+    \item Substituir os dois laços aninhados no final do servidor por um único laço que invoca \texttt{recvfrom()} e \texttt{sendto()}.
 \end{itemize}
-Por fim, o experimento deve comparar o comportamento do servidor UDP com o servidor TCP, especialmente no caso de dois clientes UDP conectando-se simultaneamente ao mesmo servidor.
+Por fim, o experimento compara o comportamento do servidor UDP com o servidor TCP, especialmente no caso de dois clientes UDP conectando-se simultaneamente ao mesmo servidor.
 
-\subsection*{Implementação}
+\subsection{Implementação}
 
 A implementação do experimento foi realizada com base no código do exemplo \texttt{simplex-talk}, utilizando o protocolo UDP para comunicação. As principais modificações realizadas foram:
+
 \begin{itemize}
-    \item No cliente e no servidor, o socket foi configurado com o parâmetro \texttt{SOCK\_DGRAM}, indicando o uso do protocolo UDP.
+    \item No cliente \hyperref[lst:client3]{\texttt{client34.c}} e no servidor \hyperref[lst:server3]{\texttt{server34.c}}, o socket foi configurado com o parâmetro \texttt{SOCK\_DGRAM}, indicando o uso do protocolo UDP.
     \item No servidor, as funções \texttt{listen()} e \texttt{accept()} foram removidas, uma vez que o protocolo UDP não é orientado à conexão.
     \item O servidor foi configurado para receber mensagens de múltiplos clientes utilizando a função \texttt{recvfrom()} e responder a cada cliente individualmente com a função \texttt{sendto()}.
-    \item Adição de mensagens de log no cliente e no servidor para facilitar o monitoramento da comunicação.
-\end{itemize}
+    \item Foram adicionadas mensagens de log no cliente e no servidor para facilitar o monitoramento da comunicação.\end{itemize}
 
-O código foi desenvolvido utilizando as bibliotecas padrão de sockets em C, como \texttt{<arpa/inet.h>}, \texttt{<sys/socket.h>} e \texttt{<unistd.h>}, garantindo compatibilidade com o ambiente Linux.
+O código foi desenvolvido utilizando as bibliotecas padrão de sockets em C, como \texttt{<netinet/in.h>}, \texttt{<sys/socket.h>} e \texttt{<netdb.h>}, garantindo compatibilidade com o ambiente Linux.
 
-\subsection*{Testes Realizados}
+\subsection{Testes Realizados}
 
 Os testes foram realizados em um ambiente de rede local, com o servidor e os clientes executados em máquinas distintas. O procedimento de teste foi o seguinte:
+
 \begin{enumerate}
-    \item Iniciar o servidor em uma máquina, aguardando mensagens na porta \texttt{54321}.
-    \item Iniciar dois clientes em máquinas distintas e enviar mensagens simultaneamente ao servidor.
+    \item Iniciar o servidor (\texttt{server34.c}) em uma máquina, aguardando mensagens na porta \texttt{54321}.
+    \item Iniciar dois clientes (\texttt{client34.c}) em máquinas distintas e enviar mensagens simultaneamente ao servidor.
     \item Observar o comportamento do servidor ao receber mensagens de múltiplos clientes.
     \item Comparar o comportamento do servidor UDP com o servidor TCP, especialmente em relação à ordem e confiabilidade das mensagens.
     \item Monitorar o tráfego de rede e o uso de recursos no servidor para avaliar o desempenho.
 \end{enumerate}
 
-\subsection*{Resultados Obtidos}
+\subsection{Resultados Obtidos}
 
 Os resultados observados durante os testes foram os seguintes:
+
 \begin{itemize}
     \item O servidor UDP foi capaz de receber mensagens de múltiplos clientes simultaneamente e responder a cada cliente individualmente.
     \item Diferentemente do TCP, o UDP não garantiu a ordem das mensagens nem a entrega confiável, resultando em possíveis perdas de pacotes em cenários de alta carga.
@@ -173,37 +215,52 @@ Os resultados observados durante os testes foram os seguintes:
     \item O tráfego de rede foi mais eficiente no UDP, mas a falta de confiabilidade pode ser um problema em aplicações que exigem entrega garantida.
 \end{itemize}
 
-\subsection*{Análise dos Resultados}
+\subsection{Análise dos Resultados}
 
 Os resultados obtidos demonstram as principais diferenças entre os protocolos TCP e UDP. Enquanto o TCP garante a entrega confiável e a ordem das mensagens, o UDP prioriza a baixa latência e a simplicidade, mas não oferece garantias de entrega. Essas características tornam o UDP mais adequado para aplicações que toleram perdas de pacotes, como streaming de vídeo ou jogos online, enquanto o TCP é preferido em aplicações que exigem confiabilidade, como transferência de arquivos ou sistemas de mensagens.
 
 Além disso, o experimento destacou a importância de considerar os requisitos da aplicação ao escolher o protocolo de transporte. Em cenários onde a confiabilidade é crítica, o TCP é a escolha ideal, enquanto o UDP é mais eficiente em aplicações sensíveis à latência.
 
-\subsection*{Conclusão}
+\subsection{Conclusão}
 
 O experimento 3 permitiu implementar e testar a comunicação entre cliente e servidor utilizando o protocolo UDP. A implementação e os testes realizados demonstraram as diferenças fundamentais entre os protocolos TCP e UDP, fornecendo uma compreensão prática de suas vantagens e limitações. Este experimento reforça a importância de selecionar o protocolo de transporte adequado com base nos requisitos específicos da aplicação.
 
-\section*{Bibliografia}
+\section{Apêndice}
+
+\subsection{Código-Fonte do Cliente (Experimento 1)}
+
+\lstinputlisting[caption={Código do cliente para o Experimento 1}, label={lst:client1}]{client32.c}
+
+\subsection{Código-Fonte do Servidor (Experimento 1)}
+
+\lstinputlisting[caption={Código do servidor para o Experimento 1}, label={lst:server1}]{server32.c}
+
+\subsection{Código-Fonte do Cliente (Experimento 2)}
+
+\lstinputlisting[caption={Código do cliente para o Experimento 2}, label={lst:client2}]{client33.c}
+
+\subsection{Código-Fonte do Servidor (Experimento 2)}
+
+\lstinputlisting[caption={Código do servidor para o Experimento 2}, label={lst:server2}]{server33.c}
+
+\subsection{Código-Fonte do Cliente (Experimento 3)}
+
+\lstinputlisting[caption={Código do cliente para o Experimento 3}, label={lst:client3}]{client34.c}
+
+\subsection{Código-Fonte do Servidor (Experimento 3)}
+
+\lstinputlisting[caption={Código do servidor para o Experimento 3}, label={lst:server3}]{server34.c}
+
+\section{Bibliografia}
 
 \begin{itemize}
-    \item Comer, D. E. (2013). \textit{Internetworking with TCP/IP Volume One: Principles, Protocols, and Architecture}. 6th Edition. Pearson.  
-    Referência fundamental para os conceitos de redes de computadores e protocolos TCP/IP.
-
-    \item Stevens, W. R., Fenner, B., & Rudoff, A. M. (2003). \textit{Unix Network Programming, Volume 1: The Sockets Networking API}. 3rd Edition. Addison-Wesley.  
-    Guia essencial para programação de redes utilizando sockets em sistemas Unix.
-
-    \item Tanenbaum, A. S., & Wetherall, D. J. (2010). \textit{Computer Networks}. 5th Edition. Pearson.  
-    Livro clássico que aborda os fundamentos de redes de computadores, incluindo protocolos e arquiteturas.
-
-    \item Kerrisk, M. (2010). \textit{The Linux Programming Interface: A Linux and UNIX System Programming Handbook}. No Starch Press.  
-    Referência detalhada para programação em sistemas Linux, incluindo o uso de sockets.
-
-    \item Stallings, W. (2013). \textit{Data and Computer Communications}. 10th Edition. Pearson.  
-    Livro que explora os princípios de comunicação de dados e redes de computadores.
+    \item Peterson, L. L., & Davie, B. S. (2013). \textit{Redes de Computadores - Uma Abordagem de Sistemas}. Tradução da 5ª Edição. Elsevier/Editora Campus.  
+    Livro-texto utilizado como base para os conceitos de redes de computadores abordados neste trabalho.
 
     \item Documentação oficial do Linux: \url{https://man7.org/linux/man-pages/}  
     Fonte confiável para consulta de funções e APIs utilizadas no desenvolvimento do trabalho.
 
-    \item Beej's Guide to Network Programming: \url{https://beej.us/guide/bgnet/}  
-    Tutorial prático e acessível para programação de redes utilizando sockets.
+    \item Slides da disciplina de Redes TCP/IP (Moodle).
 \end{itemize}
+
+\end{document}
