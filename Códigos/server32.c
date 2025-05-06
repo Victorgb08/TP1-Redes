@@ -6,9 +6,9 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
-#define SERVER_PORT 54321 // Porta correta conforme especificação
-#define MAX_PENDING 1     // Número máximo de conexões pendentes
-#define MAX_LINE 256      // Tamanho máximo do buffer
+#define SERVER_PORT 54321 // Porta correta conforme especificacao
+#define MAX_PENDING 1     // Numero maximo de conexoes pendentes
+#define MAX_LINE 256      // Tamanho maximo do buffer
 
 int main() {
     struct sockaddr_in sin;
@@ -16,7 +16,7 @@ int main() {
     int len;
     int server_fd, new_socket;
 
-    // Configurar o endereço do servidor
+    // Configurar o endereco do servidor
     bzero((char *)&sin, sizeof(sin));
     sin.sin_family = AF_INET;
     sin.sin_addr.s_addr = INADDR_ANY;
@@ -28,25 +28,26 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    // Associar o socket ao endereço
+    // Associar o socket ao endereco
     if (bind(server_fd, (struct sockaddr *)&sin, sizeof(sin)) < 0) {
         perror("Erro no bind");
         close(server_fd);
         exit(EXIT_FAILURE);
     }
 
-    // Escutar conexões
+    // Escutar conexoes
     if (listen(server_fd, MAX_PENDING) < 0) {
         perror("Erro no listen");
         close(server_fd);
         exit(EXIT_FAILURE);
     }
 
-    printf("Servidor aguardando conexões na porta %d...\n", SERVER_PORT);
+    printf("Servidor aguardando conexoes na porta %d...\n", SERVER_PORT);
 
-    // Loop principal para aceitar conexões
+    // Loop principal para aceitar conexoes
     while (1) {
-        if ((new_socket = accept(server_fd, (struct sockaddr *)&sin, (socklen_t *)&len)) < 0) {
+        socklen_t addr_len = sizeof(sin);
+        if ((new_socket = accept(server_fd, (struct sockaddr *)&sin, &addr_len)) < 0) {
             perror("Erro no accept");
             close(server_fd);
             exit(EXIT_FAILURE);
@@ -54,18 +55,14 @@ int main() {
 
         printf("Cliente conectado\n");
 
-        // Loop para comunicação com o cliente
+        // Loop para receber mensagens do cliente
         while ((len = recv(new_socket, buf, sizeof(buf), 0)) > 0) {
             buf[len] = '\0'; // Garantir que a string seja terminada
             printf("Mensagem recebida: %s\n", buf);
-
-            // Enviar a mesma mensagem de volta ao cliente
-            send(new_socket, buf, len, 0);
-            printf("Mensagem enviada de volta: %s\n", buf);
         }
 
-        printf("Conexão com o cliente encerrada\n");
-        close(new_socket); // Fechar conexão com o cliente
+        printf("Conexao com o cliente encerrada\n");
+        close(new_socket); // Fechar conexao com o cliente
     }
 
     // Fechar o socket do servidor
